@@ -1,10 +1,8 @@
-# Retail-Systems-data-pipline
-
 # AWS ETL PIPELINE (on going)
 ## Architecture overview (update to project progress)
 The following diagram illustrates the high-levle of project architecture:
 
-![](/etl-pipeline.jpg)
+![](/etl-pipeline.jpeg)
 
 ## Step 1 Run Glue Crawler
 Run an AWS Glue `crawler` to automatically generate the schema. A crawler can crawl multiple data stores in a single run. Upon completion, the crawler creates or updates one or more tables in the Data `Catalog`. `Athena` will use this catalog to run queries against the tables.
