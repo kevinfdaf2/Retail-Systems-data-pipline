@@ -8,7 +8,7 @@ This ERD example model a simple order system with the following entities:
 * Orders: stores sales orders placed by customers.
 * OrdersProduct: stores order line items for each order.
 
-![ER Diagram](/project_part1/ER-diagram.png)
+![ER Diagram](/Project_part1/ER-diagram.png)
 
 ## Order_products Table and Products Table
 
