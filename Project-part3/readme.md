@@ -23,7 +23,7 @@ Data Preporcessing by Glue DataBrew. AWS Glue DataBrew is a visual data preparat
 ## 3. Create jobs to load in S3 
 ![](./steps/databrew-jobs.png)
 
-## AWS glue development endpoint
+## AWS glue development endpoint (output in join-features.ipynb)
 For ETL scripts with outputs see [pySpark.ipynb](./steps/create-endpoint.png)
 
 ```python
@@ -55,12 +55,6 @@ print("Count: ", user_features_1.count())
 user_features_2 = glueContext.create_dynamic_frame_from_options(connection_type = "parquet", connection_options = {"path": ["s3://imba-kevin0019/features/user_feature_2_db/"]})
 user_features_2.printSchema()
 print("Count: ", user_features_2.count())
-
-root
-|-- user_id: long
-|-- product_id_count: int
-|-- product_id_count_distinct: int
-|-- user_reorder_ratio: double
 
 Count:  206209
 
