@@ -14,6 +14,7 @@ WHERE a.eval_set = 'prior')
 
 # 2 Create a SQL query (user_features_1). Based on table orders, for each user, calculate the max order_number, the sum of days_since_prior_order and the average of days_since_prior_order.
 
+```sql
 SELECT user_id,
     max(order_number) as max_order_number,
     sum(days_since_prior_order) as sum_days_since_prior_order,
@@ -21,13 +22,13 @@ SELECT user_id,
 FROM "prod"."orders" 
 group by user_id
 limit 10;
-
+```
 
 # 3 Create a SQL query (user_features_2). Similar to above, based on table order_products_prior,
 for each user calculate the total number of products, total number of distinct products, and user
 reorder ratio(number of reordered = 1 divided by number of order_number > 1).
 
-
+```sql
 SELECT user_id,
     count(product_id) as total_num_of_products,
     count(distinct product_id) as distinct_products,
@@ -36,12 +37,14 @@ SELECT user_id,
 FROM "prod"."order_products_prior"
 group by user_id
 limit 10;
+```
 
 
 # 4 Create a SQL query (up_features). Based on table order_products_prior, for each user and
 product, calculate the total number of orders, minimum order_number, maximum
 order_number and average add_to_cart_order.
 
+```sql
 SELECT user_id,
     product_id,
     count(*) as number_ordered, 
@@ -52,15 +55,13 @@ SELECT user_id,
 FROM "prod"."order_products_prior"
 group by user_id, product_id
 limit 10;
-
-
-
+```
 
 
 # 5. Create a SQL query (prd_features). Based on table order_products_prior, first write a sql query to calculate the sequence of product purchase for each user, and name it product_seq_time (For example, if a user first time purchase a product A, mark it as 1. If it’s the second time a user purchases a product A, mark it as 2).
 
 
-
+```sql
 select 
     product_id,
     count(*) as product_count,
@@ -75,6 +76,7 @@ from
 from order_products_prior)
 group by product_id
 limit 10;
+```
 
 
 
