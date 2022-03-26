@@ -18,13 +18,13 @@ Data Preporcessing by Glue DataBrew. AWS Glue DataBrew is a visual data preparat
 ![](./steps/create-dataset.png)
 
 ## 2. Create Projects with recipe (step function)
-![](./steps/create-projects.png)
+![](./steps/databrew-projects.png)
 
 ## 3. Create jobs to load in S3 
-![](./steps/create-jobs.png)
+![](./steps/databrew-jobs.png)
 
 ## AWS glue development endpoint
-For ETL scripts with outputs see [pySpark.ipynb](/Project_part3_v3/pySpark.ipynb)
+For ETL scripts with outputs see [pySpark.ipynb](./step/create-endpoint.png)
 
 ```py
 # Create data frames from the source tables 
