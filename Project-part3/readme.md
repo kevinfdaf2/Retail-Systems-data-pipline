@@ -9,7 +9,7 @@ Factors that effect user behaviour to be created (Assume from DS team)
 3. preference = user + product (up_features)
 
 High levels in Solution:
-![](/Project_part3/part3-work-flow.jpeg)
+![](./part3-work-flow.jpeg)
 
 ## AWS Glue DataBrew 
 Data Preporcessing by Glue DataBrew. AWS Glue DataBrew is a visual data preparation tool that enables users to clean and normalize data without writing any code. DataBrew is serverless, can explore and transform terabytes of raw data without needing to create clusters or manage any infrastructure.
