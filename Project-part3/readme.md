@@ -23,6 +23,9 @@ Data Preporcessing by Glue DataBrew. AWS Glue DataBrew is a visual data preparat
 ## 3. Create jobs to load in S3 
 ![](./steps/databrew-jobs.png)
 
+## 4. Create development endpoint to open notebook
+![](./steps/create-endpoint.png)
+
 ## AWS glue development endpoint (output in [join-features.ipynb](./join-features.ipynb))
 ```python
 
