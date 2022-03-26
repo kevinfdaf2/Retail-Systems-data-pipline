@@ -1,6 +1,6 @@
 # **Project part 2**
 
-# 1 Create a table called order_products_prior by using the last SQL query you created from the previous assignment. 
+# 1. Create a table called order_products_prior by using the last SQL query you created from the previous assignment. 
 
 ```sql
 CREATE TABLE order_products_prior WITH (external_location = 's3://imba-kevin0019/features/order_products_prior/', format = 'parquet')
@@ -12,7 +12,7 @@ ON a.order_id = b.order_id
 WHERE a.eval_set = 'prior')
 ```
 
-# 2 Create a SQL query (user_features_1). Based on table orders, for each user, calculate the max order_number, the sum of days_since_prior_order and the average of days_since_prior_order.
+# 2. Create a SQL query (user_features_1). Based on table orders, for each user, calculate the max order_number, the sum of days_since_prior_order and the average of days_since_prior_order.
 
 ```sql
 SELECT user_id,
@@ -24,7 +24,7 @@ group by user_id
 limit 10;
 ```
 
-# 3 Create a SQL query (user_features_2). Similar to above, based on table order_products_prior,
+# 3. Create a SQL query (user_features_2). Similar to above, based on table order_products_prior,
 for each user calculate the total number of products, total number of distinct products, and user
 reorder ratio(number of reordered = 1 divided by number of order_number > 1).
 
@@ -40,7 +40,7 @@ limit 10;
 ```
 
 
-# 4 Create a SQL query (up_features). Based on table order_products_prior, for each user and
+# 4. Create a SQL query (up_features). Based on table order_products_prior, for each user and
 product, calculate the total number of orders, minimum order_number, maximum
 order_number and average add_to_cart_order.
 
