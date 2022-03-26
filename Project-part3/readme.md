@@ -24,37 +24,62 @@ Data Preporcessing by Glue DataBrew. AWS Glue DataBrew is a visual data preparat
 ![](./steps/databrew-jobs.png)
 
 ## AWS glue development endpoint
-For ETL scripts with outputs see [pySpark.ipynb](./step/create-endpoint.png)
+For ETL scripts with outputs see [pySpark.ipynb](./steps/create-endpoint.png)
 
-```py
-# Create data frames from the source tables 
-prd_feature = spark.read.parquet("s3://data-lake-bucket-imba/features/prd_feature_db")
-prd_feature.show(10)
+```python
+
+import sys
+from awsglue.transforms import *
+from awsglue.utils import getResolvedOptions
+from pyspark.context import SparkContext
+from awsglue.context import GlueContext
+from awsglue.job import Job
+
+glueContext = GlueContext(SparkContext.getOrCreate())
+
+prd_feature = glueContext.create_dynamic_frame_from_options(connection_type = "parquet", connection_options = {"path": ["s3://imba-kevin0019/features/prd_feature_db/"]})
 prd_feature.printSchema()
 print("Count: ", prd_feature.count())
 
-up_features = spark.read.parquet("s3://data-lake-bucket-imba/features/up_features_db")
-up_features.show(10)
+
+up_features = glueContext.create_dynamic_frame_from_options(connection_type = "parquet", connection_options = {"path": ["s3://imba-kevin0019/features/up_feature_db"]})
 up_features.printSchema()
 print("Count: ", up_features.count())
 
-user_features_1 = spark.read.parquet("s3://data-lake-bucket-imba/features/user_feature1_db")
-user_features_1.show(10)
+
+user_features_1 = glueContext.create_dynamic_frame_from_options(connection_type = "parquet", connection_options = {"path": ["s3://imba-kevin0019/features/user_feature_1_db/"]})
 user_features_1.printSchema()
 print("Count: ", user_features_1.count())
 
-user_features_2 = spark.read.parquet("s3://data-lake-bucket-imba/features/user_features_2_db")
-user_features_2.show(10)
+
+user_features_2 = glueContext.create_dynamic_frame_from_options(connection_type = "parquet", connection_options = {"path": ["s3://imba-kevin0019/features/user_feature_2_db/"]})
 user_features_2.printSchema()
 print("Count: ", user_features_2.count())
 
-# Join the data frames 
-joinDF = ((up_features.join(prd_feature, "product_id")).join(user_features_1, "user_id")).join(user_features_2, "user_id")
-joinDF.show(10)
-joinDF.printSchema()
-print("Count: ", joinDF.count())
+root
+|-- user_id: long
+|-- product_id_count: int
+|-- product_id_count_distinct: int
+|-- user_reorder_ratio: double
 
-# Write out a single file to S3 directory "finaltable"
-singleDF = joinDF.repartition(1)
-singleDF.write.csv("s3://data-lake-bucket-imba/features/finaltable", header = "true")
+Count:  206209
+
+# join user features together
+users = Join.apply(user_features_1.rename_field('user_id','user_id1'), user_features_2, 'user_id1', 'user_id').drop_fields(['user_id1'])
+
+
+# join everything together
+df = Join.apply(Join.apply(up_features, 
+                  users.rename_field('user_id','user_id1'), 
+                  'user_id','user_id1').drop_fields(['user_id1']),
+      prd_feature.rename_field('product_id','product_id1'), 
+      'product_id','product_id1').drop_fields(['product_id1'])
+      
+      
+      
+# convert glue dynamic dataframe to spark dataframe
+df_spark = df.toDF()
+df_spark.repartition(1).write.mode('overwrite').format('csv').save("s3://imba-kevin0019/features/features_join", header = 'true')
+
+
 ```
