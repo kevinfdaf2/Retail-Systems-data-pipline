@@ -2,7 +2,7 @@
 
 # 1 Create a table called order_products_prior by using the last SQL query you created from the previous assignment. 
 
-
+```sql
 CREATE TABLE order_products_prior WITH (external_location = 's3://imba-kevin0019/features/order_products_prior/', format = 'parquet')
 as (SELECT a.*, b.product_id,
 b.add_to_cart_order,
@@ -10,7 +10,7 @@ b.reordered FROM orders a
 JOIN order_products b
 ON a.order_id = b.order_id
 WHERE a.eval_set = 'prior')
-
+```
 
 # 2 Create a SQL query (user_features_1). Based on table orders, for each user, calculate the max order_number, the sum of days_since_prior_order and the average of days_since_prior_order.
 
