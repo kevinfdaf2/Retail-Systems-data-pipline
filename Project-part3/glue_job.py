@@ -15,5 +15,5 @@ user_features_2 = spark.read.parquet("s3://imba-kevin0019/features/user_feature_
 joinDF = ((up_features.join(prd_feature, "product_id")).join(user_features_1, "user_id")).join(user_features_2, "user_id")
 
 singleDF = joinDF.repartition(1)
-singleDF.write.csv("s3://imba-kevin0019/features/features_join", header = "true")
+singleDF.write.mode('overwrite').csv("s3://imba-kevin0019/features/features_join", header = "true")
 
