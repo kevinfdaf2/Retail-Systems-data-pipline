@@ -16,22 +16,20 @@ WHERE a.eval_set = 'prior')
 
 ```sql
 SELECT user_id,
-    max(order_number) as max_order_number,
-    sum(days_since_prior_order) as sum_days_since_prior_order,
-    avg(days_since_prior_order) as avg_days_since_prior_order
+    max(order_number) as max_order_number,# (user_orders)
+    sum(days_since_prior_order) as sum_days_since_prior_order,# (user_period)
+    avg(days_since_prior_order) as avg_days_since_prior_order # (user_mean_days_since_prior)
 FROM "prod"."orders" 
 group by user_id
 limit 10;
 ```
 
-# 3. Create a SQL query (user_features_2). Similar to above, based on table order_products_prior,
-for each user calculate the total number of products, total number of distinct products, and user
-reorder ratio(number of reordered = 1 divided by number of order_number > 1).
+# 3. Create a SQL query (user_features_2). Similar to above, based on table order_products_prior, for each user calculate the total number of products, total number of distinct products, and user reorder ratio(number of reordered = 1 divided by number of order_number > 1).
 
 ```sql
 SELECT user_id,
-    count(product_id) as total_num_of_products,
-    count(distinct product_id) as distinct_products,
+    count(product_id) as product_id_count, # (user_total_products)
+    count(distinct product_id) as product_id_count_distinct, # (user_distinct_products)
     sum(case when reordered = 1 then 1 else 0 end)/
     cast(sum(case when order_number > 1 then 1 else 0 end) as double) as user_reorder_ratio
 FROM "prod"."order_products_prior"
@@ -40,17 +38,15 @@ limit 10;
 ```
 
 
-# 4. Create a SQL query (up_features). Based on table order_products_prior, for each user and
-product, calculate the total number of orders, minimum order_number, maximum
-order_number and average add_to_cart_order.
+# 4. Create a SQL query (up_features). Based on table order_products_prior, for each user and product, calculate the total number of orders, minimum order_number, maximum order_number and average add_to_cart_order.
 
 ```sql
 SELECT user_id,
     product_id,
-    count(*) as number_ordered, 
-    min(order_number) as min_order_number,
-    max(order_number) as max_order_number,
-    avg(add_to_cart_order) as avg_add_cart
+    count(*) as number_ordered, # (up_orders)
+    min(order_number) as min_order_number,# (up_first_orders)
+    max(order_number) as max_order_number,# (up_last_orders)
+    avg(add_to_cart_order) as avg_add_cart# (up_average_cart_position)
     
 FROM "prod"."order_products_prior"
 group by user_id, product_id
@@ -64,10 +60,10 @@ limit 10;
 ```sql
 select 
     product_id,
-    count(*) as product_count,
-    sum(reordered) as sum_of_reordered,
-    sum(case when product_seq_time = 1 then 1 else 0 end) as first_orders,
-    sum(case when product_seq_time = 2 then 1 else 0 end) as second_orders
+    count(*) as product_count, # (prod_orders)
+    sum(reordered) as sum_of_reordered,# (prod_reorders)
+    sum(case when product_seq_time = 1 then 1 else 0 end) as first_orders,# (prod_first_orders)
+    sum(case when product_seq_time = 2 then 1 else 0 end) as second_orders# (prod_second_orders)
 
 from 
 (select *, 
