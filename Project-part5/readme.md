@@ -66,7 +66,7 @@ After bulid two Lambda funtion we can create EventBridge to trigger it.
 
 # Trigger Based ETL Pipline
 
-![](./steps/Automated ETL Pipeline \(Trigger Based\).jpeg)
+![](./Automated ETL Pipeline (Trigger Based).jpeg)
 
 ### Base on the Lambda function, we create event notification
 
