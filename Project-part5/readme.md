@@ -39,7 +39,7 @@ def lambda_handler(event, context):
 
 # Schedule Based ETL Pipline
 
-![](./Automated ETL Pipeline \(Schedule Based\).jpeg)
+![](./Automated ETL Pipeline (Schedule Based).jpeg)
 
 After bulid two Lambda funtion we can create EventBridge to trigger it.
 
