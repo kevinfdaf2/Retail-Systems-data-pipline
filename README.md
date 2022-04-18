@@ -1,5 +1,5 @@
-# AWS ETL PIPELINE (on going)
-## Architecture overview (update to project progress)
+# AWS ETL PIPELINE
+## Architecture overview
 The following diagram illustrates the high-levle of project architecture:
 
 ![](/etl-pipeline.jpeg)
@@ -39,6 +39,12 @@ AWS Glue provides some great built-in transformation. Glue automatically generat
 * serverless ETL tool 
 * on a fully managed Apache Spark environment (speed and power)
 * pay only for the queries that you run
+
+## Step 5 Automating ETL
+
+
+## Step 6 Modelling
+
 
 ## Project Notes 
 
