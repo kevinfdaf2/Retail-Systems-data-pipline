@@ -19,7 +19,7 @@ There are two steps for this part. First, we need to build out a model, typicall
 - Not perform well on high dimentions data (many features)  
 
 
-
+-----------
 - model code in [main.R](./model/r/main.R)
 - configrations in [global.dcf](./model/r/global.dcf)
 
