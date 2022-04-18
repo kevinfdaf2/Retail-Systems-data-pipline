@@ -5,6 +5,21 @@ There are two steps for this part. First, we need to build out a model, typicall
 
 # 1. Build XGBoost model in R 
 
+## Why XGBoost?
+
+- There is a nomalization term in the cost function, it can prevent overfiting.
+- Multi-thread processing
+- For missing features in the data, XGBoost can automatically study its seperate direction
+- Build-in cross validation (xgb.cv())
+
+### Disadvantages
+
+- Too many parameters need to tune
+- Can only fit stuctured data 
+- Not perform well on high dimentions data (many features)  
+
+
+
 - model code in [main.R](./model/r/main.R)
 - configrations in [global.dcf](./model/r/global.dcf)
 
@@ -131,9 +146,9 @@ response['Body'].read().decode('utf-8')
 ## Build lambda function [model-endpoint.py](./model/model-endpoint.py)
 
 
-Name: imba-xgb-func
-IAM Role: full access to Sagemaker
-Timeout: 20s
+- Name: imba-xgb-func
+- IAM Role: full access to Sagemaker
+- Timeout: 20s
 
 ```
 # We need to use the low-level library to interact with SageMaker since the SageMaker API
@@ -210,5 +225,6 @@ You can test the endpoint by copy the test case to the block:
 
 '1,6.67578125,3418,209,0.595703125,514,10.0,11,57,11,1599,0.1498791297340854,1.2884770346494763,0.22388993120700437,9.017543859649123,0.017543859649122806,46,0.02127659574468085'
 
+![](endpoint_page.png)
 
 
