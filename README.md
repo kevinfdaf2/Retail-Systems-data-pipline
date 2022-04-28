@@ -52,6 +52,13 @@ The glue job should run after glue crawler at least 10 mins (we set 1h here) to 
 
 ## Step 6 Modelling
 
+- Model use: XGBoost
+- Deploy on: Segemaker
+
+There are two steps for this part. First, we need to build a model, typically this is a data scientist's job, and they will fit the model locally to find the best parameter. Then we can use the parameter to deploy the best model on the cloud, that consumers can easily invoke and get predictions from our model.
+
+
+Then we can set up an API gateway to access the model endpoint we created on Sagemaker through the Lambda function. And host a static website on AWS S3 to test our model endpoint. The website will take CSV form value as model input and return a result of whether the user will buy this product.
 
 ## Project Notes 
 
