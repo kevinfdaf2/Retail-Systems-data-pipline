@@ -42,6 +42,13 @@ AWS Glue provides some great built-in transformation. Glue automatically generat
 
 ## Step 5 Automating ETL
 
+We can automate our glue job and glue crawler with Lambda, there are two ways of creating ETL pipeline:
+
+- Schedule based ETL: every day 8:00
+- Trigger based ETL: once user uploaded something to S3
+
+
+The glue job should run after glue crawler at least 10 mins (we set 1h here) to give crawler job enought time to run.
 
 ## Step 6 Modelling
 
